@@ -1,30 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-router.route('/').get((req, res, next) => {
-  res.status(200).json({ success: true, msg: 'Get All Travels' });
-});
+// Import Travel CRUD Methods
+const {
+  getTravels,
+  getTravel,
+  createTravel,
+  updateTravel,
+  deleteTravel,
+} = require('../controllers/travels');
 
-router.route('/:id').get((req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, msg: `Get Travel Id: ${req.params.id}` });
-});
+router.route('/').get(getTravels).post(createTravel);
 
-router.route('/').post((req, res, next) => {
-  res.status(200).json({ success: true, msg: 'Travel Created' });
-});
-
-router.route('/:id').put((req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, msg: `Travel Id: ${req.params.id} Updated` });
-});
-
-router.route('/:id').delete((req, res, next) => {
-  res
-    .status(200)
-    .json({ success: true, msg: `Travel Id: ${req.params.id} Deleted` });
-});
+router.route('/:id').get(getTravel).put(updateTravel).delete(deleteTravel);
 
 module.exports = router;
