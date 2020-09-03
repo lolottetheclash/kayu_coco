@@ -13,6 +13,9 @@ connectDb();
 
 const app = express();
 
+// Body parser: Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
+app.use(express.json());
+
 const PORT = process.env.PORT || 5000;
 
 // Routes files
