@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const travelSchema = new mongoose.Schema({
   title: {
@@ -17,10 +18,17 @@ const travelSchema = new mongoose.Schema({
     required: [true, 'Please add the last city of your trip'],
     trim: true,
   },
+  slug: String,
   createdAt: {
     type: Date,
     default: Date.now,
   },
+});
+
+travelSchema.pre('save', function (next) {
+  this.slug = slugify(this.title.toLowerCase());
+  console.log(`ici le slug: ${this.slug}`);
+  next();
 });
 
 module.exports = mongoose.model('Travel', travelSchema);
