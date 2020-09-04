@@ -1,4 +1,5 @@
 const Travel = require('../models/Travel');
+const ErrorResponse = require('../utils/ErrorResponse');
 
 // @desc Get All Travels
 // @route GET /api/v1/travels
@@ -10,7 +11,7 @@ exports.getTravels = async (req, res, next) => {
       .status(200)
       .json({ success: true, count: travels.length, data: travels });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -23,11 +24,13 @@ exports.getTravel = async (req, res, next) => {
     // If travel id requested isn't in DB
     if (!travel) {
       // return to esc from try/catch
-      return res.status(400).json({ succes: false });
+      return next(
+        new ErrorResponse(`Travel not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({ success: true, data: travel });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -39,7 +42,7 @@ exports.createTravel = async (req, res, next) => {
     const travel = await Travel.create(req.body);
     res.status(201).json({ success: true, data: travel });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -55,11 +58,13 @@ exports.updateTravel = async (req, res, next) => {
     // If travel id requested isn't in DB
     if (!travel) {
       // return to esc from try/catch
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Travel not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({ success: true, data: travel });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -72,10 +77,12 @@ exports.deleteTravel = async (req, res, next) => {
     // If travel id requested isn't in DB
     if (!travel) {
       // return to esc from try/catch
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(`Travel not found with id of ${req.params.id}`, 404)
+      );
     }
     res.status(200).json({ success: true, data: {} });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };

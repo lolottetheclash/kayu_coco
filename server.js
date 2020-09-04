@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const colors = require('colors');
 
 const connectDb = require('./config/db');
+const errorHandler = require('./middlewares/error');
 
 // Loading Environment Vars
 dotenv.config({ path: './config/config.env' });
@@ -36,6 +37,9 @@ const server = app.listen(
       .yellow.bold
   )
 );
+
+// Errors Middleware Handler
+app.use(errorHandler);
 
 // Handling Rejected Promise
 process.on('unhandledRejection', (err, promise) => {
