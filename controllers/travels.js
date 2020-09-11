@@ -15,7 +15,7 @@ exports.getTravels = asyncHandler(async (req, res, next) => {
 // @route GET /api/v1/travels/:id
 // @access Public
 exports.getTravel = asyncHandler(async (req, res, next) => {
-  const travel = await Travel.findById(req.params.id).exec();
+  const travel = await Travel.findById(req.params.id);
   // If travel id requested isn't in DB
   if (!travel) {
     // return to esc from try/catch
