@@ -1,4 +1,5 @@
 const Travel = require('../models/Travel');
+const City = require('../models/City');
 const ErrorResponse = require('../utils/ErrorResponse');
 const asyncHandler = require('../middlewares/async');
 
@@ -64,4 +65,19 @@ exports.deleteTravel = asyncHandler(async (req, res, next) => {
     );
   }
   res.status(200).json({ success: true, data: {} });
+});
+
+// @desc Get All Cities From Specific Travel
+// @desc Get /api/v1/travels/:id/cities
+// @desc Public
+exports.getAllCitiesOfTravel = asyncHandler(async (req, res, next) => {
+  const result = await Travel.findById(req.params.id).populate({
+    path: 'cities',
+  });
+  if (!result) {
+    return next(
+      new ErrorResponse(`Travel not found with id of ${req.params.id}`, 404)
+    );
+  }
+  res.status(200).json({ success: true, data: result.cities });
 });

@@ -62,3 +62,17 @@ exports.deleteCity = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: {} });
 });
 
+// @desc Get All Travels Which includes a Specific City
+// @route /api/v1/cities/:id/travels
+// @access Public
+exports.getAllTravelsOfCity = asyncHandler(async (req, res, next) => {
+  const result = await City.findById(req.params.id).populate({
+    path: 'travels',
+  });
+  if (!result) {
+    return next(
+      new ErrorResponse(`City not found with id ${req.params.id}`, 404)
+    );
+  }
+  res.status(200).json({ success: true, data: result.travels });
+});

@@ -15,4 +15,6 @@ router.route('/').get(getCities).post(createCity);
 
 router.route('/:id').get(getCity).put(updateCity).delete(deleteCity);
 
+router.route('/:id/travels').get(getAllTravelsOfCity);
+
 module.exports = router;

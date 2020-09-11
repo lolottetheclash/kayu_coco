@@ -8,10 +8,13 @@ const {
   createTravel,
   updateTravel,
   deleteTravel,
+  getAllCitiesOfTravel,
 } = require('../controllers/travels');
 
 router.route('/').get(getTravels).post(createTravel);
 
 router.route('/:id').get(getTravel).put(updateTravel).delete(deleteTravel);
+
+router.route('/:id/cities').get(getAllCitiesOfTravel);
 
 module.exports = router;
