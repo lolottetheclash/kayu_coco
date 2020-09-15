@@ -32,14 +32,14 @@ const travelSchema = new mongoose.Schema({
   // },
 });
 
-travelSchema.path('cities').validate(function (travelSchema) {
-  if (!travelSchema) {
-    return false;
-  } else if (travelSchema.length < 2) {
-    return false;
-  }
-  return true;
-}, 'Travel needs to have at least two cities ');
+// travelSchema.path('cities').validate(function (travelSchema) {
+//   if (!travelSchema) {
+//     return false;
+//   } else if (travelSchema.length < 2) {
+//     return false;
+//   }
+//   return true;
+// }, 'Travel needs to have at least two cities ');
 
 // travelSchema.pre('save', function (next) {
 //   this.slug = slugify(this.title.toLowerCase());

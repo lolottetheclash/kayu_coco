@@ -30,8 +30,12 @@ exports.getTravel = asyncHandler(async (req, res, next) => {
 // @route POST /api/v1/travels
 // @access Private
 exports.createTravel = asyncHandler(async (req, res, next) => {
-  const travel = await Travel.create(req.body);
-  res.status(201).json({ success: true, data: travel });
+  // Check if at least 2 cities to create travel
+  if (req.body.cities.length < 2) {
+    return next(
+      new ErrorResponse('Travel must contains at least 2 cities', 400)
+    );
+  }
 });
 
 // @desc Update Travel
