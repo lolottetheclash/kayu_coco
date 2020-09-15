@@ -36,6 +36,37 @@ exports.createTravel = asyncHandler(async (req, res, next) => {
       new ErrorResponse('Travel must contains at least 2 cities', 400)
     );
   }
+
+  let travel = { title: req.body.title, cities: [] };
+  let newTravel = new Travel(travel);
+
+  let futureTravel = await req.body.cities.map(async city => {
+    // Is city already in DB ?
+    const existingCity = await City.findOne({ name: city.name });
+    if (!existingCity) {
+      const newCity = await City.create(city);
+      newTravel.cities.push(newCity._id);
+      newCity.travels.push(newTravel._id);
+      newCity.save();
+    } else {
+      newTravel.cities.push(existingCity._id);
+      existingCity.travels.push(newTravel._id);
+      existingCity.save();
+    }
+  });
+  await Promise.all(futureTravel);
+
+  // isoler ce bout de code
+  newTravel.save(function (err) {
+    if (err)
+      return next(
+        new ErrorResponse(
+          `Error when saving travel : ${err}`.red.underline.bold,
+          400
+        )
+      );
+    res.status(201).json({ success: true, data: newTravel });
+  });
 });
 
 // @desc Update Travel
@@ -61,6 +92,17 @@ exports.updateTravel = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.deleteTravel = asyncHandler(async (req, res, next) => {
   const travel = await Travel.findByIdAndDelete(req.params.id);
+  travel.cities.map(async cityId => {
+    await City.findByIdAndUpdate(
+      cityId,
+      { $pull: { travels: travel._id } },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  });
+
   // If travel id requested isn't in DB
   if (!travel) {
     // return to esc from try/catch
