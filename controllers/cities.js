@@ -4,6 +4,8 @@ const Travel = require('../models/Travel');
 const asyncHandler = require('../middlewares/async');
 const ErrorResponse = require('../utils/ErrorResponse');
 
+let _ = require('lodash');
+
 // @desc GET All Cities
 // @route GET /api/v1/cities
 // @access Public
