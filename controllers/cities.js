@@ -56,6 +56,16 @@ exports.updateCity = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.deleteCity = asyncHandler(async (req, res, next) => {
   const city = await City.findByIdAndDelete(req.params.id);
+  if (city && !_.isEmpty(city.travels)) {
+    const travelsToUpdate = city.travels;
+    travelsToUpdate.map(async travelId => {
+      await Travel.findByIdAndUpdate(
+        travelId,
+        { $pull: { cities: city._id } },
+        { new: true, runValidators: true }
+      );
+    });
+  }
   if (!city) {
     return next(
       new ErrorResponse(`City not found with id ${req.params.id}`, 404)
