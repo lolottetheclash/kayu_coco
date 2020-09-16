@@ -7,7 +7,7 @@ const errorHandler = (err, req, res, next) => {
 
   // Mongoose Bad Request Id
   if (err.name === 'CastError') {
-    const message = `Travel n°${err.value} does not exist: Bad Id Format`;
+    const message = `Document n°${err.value} does not exist: Bad Id Format`;
     error = new ErrorResponse(message, 400);
   }
 
