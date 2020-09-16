@@ -18,7 +18,6 @@ exports.getTravel = asyncHandler(async (req, res, next) => {
   const travel = await Travel.findById(req.params.id);
   // If travel id requested isn't in DB
   if (!travel) {
-    // return to esc from try/catch
     return next(
       new ErrorResponse(`Travel not found with id of ${req.params.id}`, 404)
     );
@@ -26,7 +25,7 @@ exports.getTravel = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: travel });
 });
 
-// @desc Create Travel
+// @desc Create Travel => Create City if new & add city ids to travel.cities[]
 // @route POST /api/v1/travels
 // @access Private
 exports.createTravel = asyncHandler(async (req, res, next) => {
@@ -69,22 +68,60 @@ exports.createTravel = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc Update Travel
+// @desc Update Travel => if cities[...] in body, update city.travels[]
 // @route PUT /api/v1/travels/:id
 // @access Private
 exports.updateTravel = asyncHandler(async (req, res, next) => {
+  // If Cities Update in body
+  if (req.body.cities) {
+    let travelToUpdate = await Travel.findById(req.params.id);
+    let travelOldCities = travelToUpdate.cities;
+    let travelNewCities = req.body.cities;
+
+    // Cities where we have to DELETE travel id in their travels
+    const citiesIdsToDeleteTravel = travelOldCities.filter(
+      oldCity => !travelNewCities.includes(oldCity.toString())
+    );
+
+    // Cities where we have to ADD travel id in their travels
+    const citiesIdsToAddTravel = travelNewCities.filter(
+      newCity => !travelOldCities.includes(newCity.toString())
+    );
+
+    // TODO: factorise both 'if' statements into 1 better function, same for deleTravel method
+    if (citiesIdsToDeleteTravel) {
+      citiesIdsToDeleteTravel.map(async cityId => {
+        await City.findByIdAndUpdate(
+          cityId,
+          { $pull: { travels: travelToUpdate._id } },
+          { new: true, runValidators: true }
+        );
+      });
+    }
+
+    // FIXME: Add cityId to travels only if not already existing
+    if (citiesIdsToAddTravel) {
+      citiesIdsToAddTravel.map(async cityId => {
+        await City.findByIdAndUpdate(
+          cityId,
+          { $push: { travels: travelToUpdate._id } },
+          { new: true, runValidators: true }
+        );
+      });
+    }
+  }
   const travel = await Travel.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
+
   // If travel id requested isn't in DB
   if (!travel) {
-    // return to esc from try/catch
     return next(
       new ErrorResponse(`Travel not found with id of ${req.params.id}`, 404)
     );
   }
-  res.status(200).json({ success: true, data: travel });
+  res.status(200).json({ success: true, data: {} });
 });
 
 // @desc Delete Travel
