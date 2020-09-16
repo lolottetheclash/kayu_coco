@@ -18,7 +18,7 @@ exports.getCities = asyncHandler(async (req, res, next) => {
 // @route /api/cities/:id
 // @access Public
 exports.getCity = asyncHandler(async (req, res, next) => {
-  const city = await await City.findById(req.params.id);
+  const city = await City.findById(req.params.id);
   if (!city) {
     return next(
       new ErrorResponse(`City not found with id ${req.params.id}`, 404)
