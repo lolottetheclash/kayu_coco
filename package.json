@@ -1,0 +1,43 @@
+{
+  "name": "kayu_coco",
+  "version": "1.0.0",
+  "description": "Travel App",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "client": "cd client && npm start",
+    "start": "NODE_ENV=production node start.js",
+    "dev": "nodemon start.js",
+    "full dev": "concurrently \"npm run dev\" \"npm run client\"",
+    "tests": "jest --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolottetheclash/kayu_coco.git"
+  },
+  "keywords": [
+    "Travel"
+  ],
+  "author": "Lauren OLIVIER",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lolottetheclash/kayu_coco/issues"
+  },
+  "homepage": "https://github.com/lolottetheclash/kayu_coco#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.20",
+    "mongoose": "^5.10.2",
+    "morgan": "^1.10.0",
+    "slugify": "^1.4.5"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  }
+}
