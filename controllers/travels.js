@@ -121,7 +121,7 @@ exports.updateTravel = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Travel not found with id of ${req.params.id}`, 404)
     );
   }
-  res.status(200).json({ success: true, data: {} });
+  res.status(200).json({ success: true, data: travel });
 });
 
 // @desc Delete Travel
