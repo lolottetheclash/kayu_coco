@@ -8,7 +8,7 @@
     "client": "cd client && npm start",
     "start": "NODE_ENV=production node start.js",
     "dev": "nodemon start.js",
-    "full dev": "concurrently \"npm run dev\" \"npm run client\"",
+    "full-dev": "concurrently \"npm run dev\" \"npm run client\"",
     "tests": "jest --detectOpenHandles"
   },
   "repository": {
@@ -32,11 +32,12 @@
     "lodash": "^4.17.20",
     "mongoose": "^5.10.2",
     "morgan": "^1.10.0",
+    "react-router-dom": "^5.2.0",
     "slugify": "^1.4.5"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.3",
-    "jest": "^26.4.2",
+    "jest": "^24.9.0",
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
   }

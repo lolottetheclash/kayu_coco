@@ -26,24 +26,34 @@ npm install
 # Lancer le serveur Express
 npm run dev
 
+# Lancer le front
+npm run client
+
+# Lancer le front & le back
+npm run full-dev
+
 # Lancer les tests
 npm run tests
 
 # Serveur lancé sur http://localhost:5000
+# Front lancé sur http://localhost:3000
+
 ```
 
 ## Fabriqué avec
 
 Pour développer ce projet, j'ai utilisé :
 
-- [VScode](https://code.visualstudio.com/)
-- [Trello](https://trello.com/)
-- [Github](https://github.com/)
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
+- [VScode](https://code.visualstudio.com/) - Code Editor
+- [Trello](https://trello.com/) - Project Organizer
+- [Github](https://github.com/) - Code Hosting Platform
+- [Node.js](https://nodejs.org/) - JavaScript runtime environment
+- [Express.js](https://expressjs.com/) - Web Application Framework
 - [Postman](https://www.postman.com/) - Tests API
-- [Mongoose](https://mongoosejs.com/) - Surcouche pour MongoDB
+- [Mongoose](https://mongoosejs.com/) - Object Data Modeling library for MongoDB
 - [Jest](https://jestjs.io/) - Tests backend
+- [React](https://fr.reactjs.org/) - JavaScript Library for user interface
+- [Fetch](https://www.npmjs.com/package/fetch) - REST API Consumer
 
 ## Auteur
 
