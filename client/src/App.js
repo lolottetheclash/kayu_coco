@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
 } from 'react-router-dom';
 import './App.css';
@@ -34,15 +33,18 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <NavBar />
-      <Switch>
-        <Route path="/" exact>
-          <LandingPage />
-        </Route>
-        <Route path="/travels" exact>
-          <Travels />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
+        <Switch>
+          <Route path="/" exact>
+            <LandingPage />
+          </Route>
+          <Route path="/login" exact>
+            <Login />
+          </Route>
+          <Route path="/travels" exact>
+            <Travels />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
         <CssBaseline />
       </ThemeProvider>
     </Router>
