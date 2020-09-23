@@ -14,6 +14,10 @@ const travelSchema = new mongoose.Schema({
       ref: 'City',
     },
   ],
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 
   // cityStart: {
   //   type: String,
