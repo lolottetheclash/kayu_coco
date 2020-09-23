@@ -22,6 +22,7 @@ app.use(express.json());
 // Routes files
 const travels = require('./routes/travels');
 const cities = require('./routes/cities');
+const users = require('./routes/users');
 
 // Morgan Middleware for logging if dev mode
 if (process.env.NODE_ENV === 'development') {
@@ -31,6 +32,7 @@ if (process.env.NODE_ENV === 'development') {
 // Mount Routers
 app.use('/api/v1/travels', travels);
 app.use('/api/v1/cities', cities);
+app.use('/api/v1/users', users);
 
 // const server = app.listen(
 //   PORT,
