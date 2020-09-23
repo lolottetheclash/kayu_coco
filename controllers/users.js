@@ -67,7 +67,6 @@ exports.GetAllTravelsFromUser = asyncHandler(async (req, res, next) => {
   const result = await User.findById(req.params.id).populate({
     path: 'travels',
   });
-  console.log('lalala', result);
   if (!result) {
     return next(
       new ErrorResponse(`User not found with id of ${req.params.id}`, 404)
