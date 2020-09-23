@@ -23,6 +23,7 @@ app.use(express.json());
 const travels = require('./routes/travels');
 const cities = require('./routes/cities');
 const users = require('./routes/users');
+const auth = require('./routes/auth');
 
 // Morgan Middleware for logging if dev mode
 if (process.env.NODE_ENV === 'development') {
@@ -33,6 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/travels', travels);
 app.use('/api/v1/cities', cities);
 app.use('/api/v1/users', users);
+app.use('/api/v1/auth', auth);
 
 // const server = app.listen(
 //   PORT,
