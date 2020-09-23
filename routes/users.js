@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-// Import User CRUD methods
+// Import User CRUD methods except Post/Create user which is in auth controller
 const {
   GetUser,
   GetAllUsers,
-  CreateUser,
   UpdateUser,
   DeleteUser,
   GetAllTravelsFromUser,
 } = require('../controllers/users');
 
-router.route('/').get(GetAllUsers).post(CreateUser);
+router.route('/').get(GetAllUsers);
 
 router.route('/:id').get(GetUser).put(UpdateUser).delete(DeleteUser);
 
