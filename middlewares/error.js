@@ -17,6 +17,12 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse(message, 400);
   }
 
+  // Mongoose Duplicate Entry Error
+  if (err.code === 11000) {
+    const message = err.message;
+    error = new ErrorResponse(message, 409);
+  }
+
   res
     .status(error.statusCode || 500)
     .json({ success: false, error: error.message || 'Server error' });
