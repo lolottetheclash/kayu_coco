@@ -23,6 +23,10 @@ const citySchema = new mongoose.Schema({
       ref: 'Travel',
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model('City', citySchema);
