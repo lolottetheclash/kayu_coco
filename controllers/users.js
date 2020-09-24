@@ -26,10 +26,12 @@ exports.GetUser = asyncHandler(async (req, res, next) => {
 //@desc Create User
 //@route Post /api/v1/users
 //@access Private
-exports.CreateUser = asyncHandler(async (req, res, next) => {
-  const newUser = await User.create(req.body);
-  res.status(201).json({ success: true, data: newUser });
-});
+// exports.CreateUser = asyncHandler(async (req, res, next) => {
+//   const { firstname, lastname, username, email, password } = req.body;
+//   const newUser = await User.create(req.body);
+
+//   res.status(201).json({ success: true, data: newUser });
+// });
 
 //@desc Update User
 //@route Get /api/v1/users/:id

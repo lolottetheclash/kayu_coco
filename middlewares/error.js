@@ -23,6 +23,12 @@ const errorHandler = (err, req, res, next) => {
     error = new ErrorResponse(message, 409);
   }
 
+  // JWT error
+  if (err.name === 'JsonWebTokenError') {
+    const message = err.message;
+    error = new ErrorResponse(message, 400);
+  }
+
   res
     .status(error.statusCode || 500)
     .json({ success: false, error: error.message || 'Server error' });
