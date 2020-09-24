@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
+const cookieParser = require('cookie-parser');
 
 const connectDb = require('./config/db');
 const errorHandler = require('./middlewares/error');
@@ -16,6 +17,9 @@ const app = express();
 
 // Body parser: Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 app.use(express.json());
+
+// Cookie parser
+app.use(cookieParser());
 
 // const PORT = process.env.PORT || 5000;
 
