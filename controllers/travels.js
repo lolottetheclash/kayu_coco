@@ -37,8 +37,7 @@ exports.createTravel = asyncHandler(async (req, res, next) => {
       new ErrorResponse('Travel must contains at least 2 cities', 400)
     );
   }
-  //TODO: Récupérer l'id de l'auteur ds le token et l'ajouter dans author au lieu de req.body.auhor
-  let travel = { title: req.body.title, cities: [], author: req.body.author };
+  let travel = { title: req.body.title, cities: [], author: req.userId };
   let newTravel = new Travel(travel);
 
   let futureTravel = await req.body.cities.map(async city => {
@@ -55,7 +54,7 @@ exports.createTravel = asyncHandler(async (req, res, next) => {
       existingCity.save();
     }
     await User.findByIdAndUpdate(
-      req.body.author,
+      req.userId,
       {
         $addToSet: { travels: newTravel._id },
       },
