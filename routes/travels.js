@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const checkAuth = require('../middlewares/checkAuth');
 
 // Import Travel CRUD Methods
 const {
@@ -11,9 +12,13 @@ const {
   getAllCitiesOfTravel,
 } = require('../controllers/travels');
 
-router.route('/').get(getTravels).post(createTravel);
+router.route('/').get(getTravels).post(checkAuth, createTravel);
 
-router.route('/:id').get(getTravel).put(updateTravel).delete(deleteTravel);
+router
+  .route('/:id')
+  .get(getTravel)
+  .put(checkAuth, updateTravel)
+  .delete(checkAuth, deleteTravel);
 
 router.route('/:id/cities').get(getAllCitiesOfTravel);
 
